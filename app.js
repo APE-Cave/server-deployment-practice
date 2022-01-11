@@ -6,14 +6,20 @@ const port = process.env.PORT || 3000;
 
 const messages = [];
 
+class Message {
+  constructor(text, author) {
+    this.text = text;
+    this.author = author;
+  }
+}
+
 app.get('/message', (req, res) => {
   res.status(200).send(messages);
 });
+
 app.post('/message', (req, res) => {
-  const message = {
-    text: req.query.text,
-    author: req.query.author,
-  };
+  const message = new Message(req.query.text, req.query.author);
+
   messages.push(message);
   res.status(200).send(message);
 
